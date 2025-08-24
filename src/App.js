@@ -1,23 +1,15 @@
-import logo from './logo.svg';
+import {router} from './const.js'
 import './App.css';
+import { RouterProvider } from 'react-router-dom';
+import {Loader} from './Components/Loader'
+import { InputProvider } from './inputContext.js';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <InputProvider>
+        <RouterProvider router={router} fallbackElement={<Loader/>} />
+      </InputProvider>
     </div>
   );
 }
