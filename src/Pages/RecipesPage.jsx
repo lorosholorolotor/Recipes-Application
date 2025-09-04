@@ -99,11 +99,15 @@ const MealsList = ({curArea}) => {
 }
 
 export const RecipesLoader = async () => {
-    await new Promise(resolve => setTimeout(resolve, 100))
-    const response = await fetch("https://www.themealdb.com/api/json/v1/1/list.php?a=list");
-    const json = await response.json();
-    const areas = json.meals;
-    return areas;
+    try{
+        await new Promise(resolve => setTimeout(resolve, 100))
+        const response = await fetch("https://www.themealdb.com/api/json/v1/1/list.php?a=list");
+        const json = await response.json();
+        const areas = json.meals;
+        return areas;
+    } catch(error){
+        console.log(`Ошибка. ${error}`)
+    }
 }
 
 export function Loader() {

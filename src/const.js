@@ -7,6 +7,7 @@ import { Profile } from './Pages/Profile';
 import { MainPage } from './Pages/MainPage';
 import { fetchMeal } from './api';
 import {Reg} from './Pages/Reg/Reg';
+import { ErrorPage } from './Pages/ErrorPage';
 
 
 
@@ -38,9 +39,20 @@ export const router = createBrowserRouter([
             {
                 path: ":id",
                 element: <Recipe/>,
-                loader: ({params})=> {
-                    return { meal: fetchMeal(params.id)}
-                }
+                loader: async ({params})=> {
+                    const meal = await fetchMeal(params.id);
+
+                    if (!meal || !meal.meals) {
+                      throw new Response("Not Found", { status: 404 });
+                    }
+ 
+                    return { meal}
+                },
+                errorElement: <ErrorPage />
+            },
+            {
+              path: "*",
+              element: <ErrorPage/>
             }
         ]
       },
@@ -55,6 +67,10 @@ export const router = createBrowserRouter([
       {
         path: "register", 
         element: <Reg/>
+      },
+      {
+        path: "*",
+        element: <ErrorPage/>
       }
     ]
   }
