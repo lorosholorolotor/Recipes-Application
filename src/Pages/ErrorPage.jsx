@@ -5,7 +5,7 @@ import { useEffect } from "react";
 export function ErrorPage({message}) {
   const error = useRouteError();
 
-  useEffect({
+  useEffect(()=>{
     if(message){
         error.message = message;
     }
